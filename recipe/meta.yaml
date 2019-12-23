@@ -1,0 +1,89 @@
+#
+# QuPath conda-forge friendly recipe
+#
+# Since the JDK situation in conda-forge is at the moment a bit stuck,
+# we repackage QuPath releases, including the current JRE used to develop them.
+#
+# This package allows using QuPath both as a standalone application or pimped
+# from python using "ququ", that should be able to automagically find qupath
+# when this package is installed.
+#
+
+{% set github_version="0.2.0-m8" %}
+{% set version="0.2.0.m8" %}
+{% set build_number="0" %}
+
+package:
+  name: qupath
+  noarch: generic
+  version: {{ version }}
+
+source:
+
+  - url: https://github.com/qupath/qupath/releases/download/v{{ github_version }}/QuPath-{{ github_version }}-Linux.tar.xz  # [linux]
+    sha256: f32493717b1579813ff2cf145acc07777bd83d4cab3758f920da5fb569fa3348                                                # [linux]
+
+  - url: https://github.com/qupath/qupath/releases/download/v{{ github_version }}/QuPath-{{ github_version }}-Mac.dmg  # [osx]
+    sha256: c9f83205d3c9c31d0b8b15f528f529825056994b486261d4c94c5c83aba6800b                                           # [osx]
+
+  - url: https://github.com/qupath/qupath/releases/download/v{{ github_version }}/QuPath-{{ github_version }}-Windows.zip  # [win]
+    sha256: cfb26644b824c51ac470babc5a59a7c0e181d0f6c3194fa15fbacb1e7e1db67e                                               # [win]
+
+build:
+
+  number: {{ build_number }}
+
+  # See https://conda.io/projects/conda-build/en/latest/resources/define-metadata.html#binary-relocation
+  # QuPath is working fine without relocation, but chokes if conda messes around these shared objects
+  binary_relocation: False
+
+  script:
+
+    # --- linux
+    - mkdir -p ${PREFIX}/opt/QuPath-{{ github_version }}                           # [linux]
+    - mv bin lib ${PREFIX}/opt/QuPath-{{ github_version }}                         # [linux]
+    - cd ${PREFIX}/opt                                                             # [linux]
+    - ln -s QuPath-{{ github_version }} QuPath                                     # [linux]
+    - mkdir -p ${PREFIX}/bin                                                       # [linux]
+    - cd ${PREFIX}/bin                                                             # [linux]
+    - ln -s ../opt/QuPath/bin/QuPath-{{ github_version }} ./qupath                 # [linux]
+
+    # --- macos
+    - 7z x QuPath-{{ github_version }}-Mac.dmg                                      # [osx]
+    - mv QuPath-{{ github_version }}/QuPath-{{ github_version }}.app ${PREFIX}/bin  # [osx]
+    - cd ${PREFIX}/bin                                                              # [osx]
+    - ln -s QuPath-{{ github_version }}.app QuPath.app                              # [osx]
+    # maybe also create a script to make it easy to call from the CLI
+
+    # --- windows
+    - mkdir %LIBRARY_PREFIX%\QuPath                                                                            # [win]
+    - robocopy %SRC_DIR%\ %LIBRARY_PREFIX%\QuPath *.* /E                                                       # [win]
+    - copy %LIBRARY_PREFIX%\QuPath\bin\QuPath-{{ github_version }}.exe %LIBRARY_PREFIX%\QuPath\bin\QuPath.exe  # [win]
+
+  # At the moment these are milestones and there are no API stability guarantees.
+  # So let's not pin here yet
+  # run_exports:
+    # - {{ pin_subpackage('qupath', max_pin='x.x') }}
+
+requirements:
+  build:
+    - p7zip  # [osx]
+
+test:
+  commands:
+    # some smoke tests
+    - qupath -script fake -image fake.ome.tiff                                                              # [linux]
+    - ${PREFIX}/bin/QuPath.app/Contents/MacOS/QuPath-{{ github_version }} -script fake -image fake.ome.tiff # [osx]
+    - %LIBRARY_PREFIX%\QuPath\bin\QuPath.exe -script fake -image fake.ome.tiff                              # [win]
+    # maybe do run some script to exercise the library (e.g. make sure openslide is found and works correctly)
+    # maybe install ququ and test some bindings
+
+about:
+  home: https://qupath.github.io/
+  license: GPLv3
+  # probably we should specify license_file with all licenses from qupath deps... they are included anyway in package
+  summary: QuPath is an open, powerful, flexible, extensible software platform for whole slide image analysis.
+
+extra:
+  recipe-maintainers:
+    - sdvillal
