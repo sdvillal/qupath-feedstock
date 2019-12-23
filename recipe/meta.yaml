@@ -15,7 +15,6 @@
 
 package:
   name: qupath
-  noarch: generic
   version: {{ version }}
 
 source:
@@ -74,7 +73,7 @@ test:
     # some smoke tests
     - qupath -script fake -image fake.ome.tiff                                                              # [linux]
     - ${PREFIX}/bin/QuPath.app/Contents/MacOS/QuPath-{{ github_version }} -script fake -image fake.ome.tiff # [osx]
-    - %LIBRARY_PREFIX%\QuPath\bin\QuPath.exe -script fake -image fake.ome.tiff                              # [win]
+    - $LIBRARY_PREFIX\QuPath\bin\QuPath.exe -script fake -image fake.ome.tiff                               # [win]
     # maybe do run some script to exercise the library (e.g. make sure openslide is found and works correctly)
     # maybe install ququ and test some bindings
 
