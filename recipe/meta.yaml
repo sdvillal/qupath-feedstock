@@ -55,9 +55,9 @@ build:
     # maybe also create a script to make it easy to call from the CLI
 
     # --- windows
-    - mkdir %LIBRARY_PREFIX%\QuPath                                                                            # [win]
-    - robocopy %SRC_DIR%\ %LIBRARY_PREFIX%\QuPath *.* /E                                                       # [win]
-    - copy %LIBRARY_PREFIX%\QuPath\bin\QuPath-{{ github_version }}.exe %LIBRARY_PREFIX%\QuPath\bin\QuPath.exe  # [win]
+    - mkdir %LIBRARY_PREFIX%\QuPath                                                                           # [win]
+    - robocopy %SRC_DIR%\ %LIBRARY_PREFIX%\QuPath\ *.* /E /MOV                                                # [win]
+    - robocopy %LIBRARY_PREFIX%\QuPath\QuPath-{{ github_version }}.exe %LIBRARY_PREFIX%\QuPath\QuPath.exe     # [win]
 
   # At the moment these are milestones and there are no API stability guarantees.
   # So let's not pin here yet
@@ -73,7 +73,7 @@ test:
     # some smoke tests
     - qupath -script fake -image fake.ome.tiff                                                              # [linux]
     - ${PREFIX}/bin/QuPath.app/Contents/MacOS/QuPath-{{ github_version }} -script fake -image fake.ome.tiff # [osx]
-    - $LIBRARY_PREFIX\QuPath\bin\QuPath.exe -script fake -image fake.ome.tiff                               # [win]
+    - $LIBRARY_PREFIX\QuPath\QuPath.exe -script fake -image fake.ome.tiff                                   # [win]
     # maybe do run some script to exercise the library (e.g. make sure openslide is found and works correctly)
     # maybe install ququ and test some bindings
 
