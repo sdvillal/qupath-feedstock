@@ -51,6 +51,7 @@ build:
     - 7z x QuPath-{{ github_version }}-Mac.dmg                                      # [osx]
     - mv QuPath-{{ github_version }}/QuPath-{{ github_version }}.app ${PREFIX}/bin  # [osx]
     - cd ${PREFIX}/bin                                                              # [osx]
+    - chmod +x ${PREFIX}/bin/QuPath.app/Contents/MacOS/QuPath-{{ github_version }}  # [osx]
     - ln -s QuPath-{{ github_version }}.app QuPath.app                              # [osx]
     # maybe also create a script to make it easy to call from the CLI
 
