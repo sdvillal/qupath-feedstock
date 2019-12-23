@@ -26,6 +26,7 @@ source:
     sha256: c9f83205d3c9c31d0b8b15f528f529825056994b486261d4c94c5c83aba6800b                                           # [osx]
 
   - url: https://github.com/qupath/qupath/releases/download/v{{ github_version }}/QuPath-{{ github_version }}-Windows.zip  # [win]
+    folder: qupath                                                                                                         # [win]
     sha256: cfb26644b824c51ac470babc5a59a7c0e181d0f6c3194fa15fbacb1e7e1db67e                                               # [win]
 
 build:
@@ -56,9 +57,9 @@ build:
     - cp ${RECIPE_DIR}/qupath-macos ${PREFIX}/bin/qupath                            # [osx]
 
     # --- windows
-    - mkdir %LIBRARY_PREFIX%\QuPath                                                                        # [win]
-    - robocopy %SRC_DIR%\ %LIBRARY_PREFIX%\QuPath\ *.* /E /MOV                                             # [win]
-    - robocopy %LIBRARY_PREFIX%\QuPath\QuPath-{{ github_version }}.exe %LIBRARY_PREFIX%\QuPath\QuPath.exe  # [win]
+    - mkdir %LIBRARY_PREFIX%\QuPath                                                                    # [win]
+    - robocopy %SRC_DIR%\qupath\ %LIBRARY_PREFIX%\QuPath\ *.* /E /MOV                                  # [win]
+    - copy %LIBRARY_PREFIX%\QuPath\QuPath-{{ github_version }}.exe %LIBRARY_PREFIX%\QuPath\QuPath.exe  # [win]
 
   # At the moment these are milestones and there are no API stability guarantees.
   # So let's not pin here yet
@@ -72,15 +73,23 @@ requirements:
 test:
   commands:
     # some smoke tests
-    - qupath -script fake -image fake.ome.tiff                              # [unix]
-    - $LIBRARY_PREFIX\QuPath\QuPath.exe -script fake -image fake.ome.tiff   # [win]
+    - qupath -script fake -image fake.ome.tiff  # [unix]
+
+    # TODO: work some proper tests in windows (when we setup access to a VM or get a windows machine)
+    # Notes: using this command here does not work (YAML cannot be parsed)
+    #        using it in run_test.bat hangs the test
+    # - %LIBRARY_PREFIX%\QuPath\QuPath.exe -script fake -image fake.ome.tiff # [win]
+    # So we only check that the files exist in the package...
+    - if exist %LIBRARY_PREFIX%\QuPath\QuPath.exe (exit 0) else (exit 1)  # [win]
+
     # maybe do run some script to exercise the library (e.g. make sure openslide is found and works correctly)
     # maybe install ququ and test some bindings
 
 about:
   home: https://qupath.github.io/
   license: GPLv3
-  # probably we should specify license_file with all licenses from qupath deps... they are included anyway in package
+  # TODO probably we should specify license_file with all licenses from qupath deps... they are included anyway in package
+  # Maybe copy them as part of the build process (see e.g. the ffmpeg windows recipe)
   summary: QuPath is an open, powerful, flexible, extensible software platform for whole slide image analysis.
 
 extra:
