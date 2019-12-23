@@ -39,26 +39,26 @@ build:
   script:
 
     # --- linux
-    - mkdir -p ${PREFIX}/opt/QuPath-{{ github_version }}                           # [linux]
-    - mv bin lib ${PREFIX}/opt/QuPath-{{ github_version }}                         # [linux]
-    - cd ${PREFIX}/opt                                                             # [linux]
-    - ln -s QuPath-{{ github_version }} QuPath                                     # [linux]
-    - mkdir -p ${PREFIX}/bin                                                       # [linux]
-    - cd ${PREFIX}/bin                                                             # [linux]
-    - ln -s ../opt/QuPath/bin/QuPath-{{ github_version }} ./qupath                 # [linux]
+    - mkdir -p ${PREFIX}/opt/QuPath-{{ github_version }}            # [linux]
+    - mv bin lib ${PREFIX}/opt/QuPath-{{ github_version }}          # [linux]
+    - cd ${PREFIX}/opt                                              # [linux]
+    - ln -s QuPath-{{ github_version }} QuPath                      # [linux]
+    - mkdir -p ${PREFIX}/bin                                        # [linux]
+    - cd ${PREFIX}/bin                                              # [linux]
+    - ln -s ../opt/QuPath/bin/QuPath-{{ github_version }} ./qupath  # [linux]
 
     # --- macos
     - 7z x QuPath-{{ github_version }}-Mac.dmg                                      # [osx]
     - mv QuPath-{{ github_version }}/QuPath-{{ github_version }}.app ${PREFIX}/bin  # [osx]
     - cd ${PREFIX}/bin                                                              # [osx]
-    - chmod +x ${PREFIX}/bin/QuPath.app/Contents/MacOS/QuPath-{{ github_version }}  # [osx]
     - ln -s QuPath-{{ github_version }}.app QuPath.app                              # [osx]
-    # maybe also create a script to make it easy to call from the CLI
+    - chmod +x QuPath.app/Contents/MacOS/QuPath-{{ github_version }}                # [osx]
+    - cp ${RECIPE_DIR}/qupath-macos ${PREFIX}/bin/qupath                            # [osx]
 
     # --- windows
-    - mkdir %LIBRARY_PREFIX%\QuPath                                                                           # [win]
-    - robocopy %SRC_DIR%\ %LIBRARY_PREFIX%\QuPath\ *.* /E /MOV                                                # [win]
-    - robocopy %LIBRARY_PREFIX%\QuPath\QuPath-{{ github_version }}.exe %LIBRARY_PREFIX%\QuPath\QuPath.exe     # [win]
+    - mkdir %LIBRARY_PREFIX%\QuPath                                                                        # [win]
+    - robocopy %SRC_DIR%\ %LIBRARY_PREFIX%\QuPath\ *.* /E /MOV                                             # [win]
+    - robocopy %LIBRARY_PREFIX%\QuPath\QuPath-{{ github_version }}.exe %LIBRARY_PREFIX%\QuPath\QuPath.exe  # [win]
 
   # At the moment these are milestones and there are no API stability guarantees.
   # So let's not pin here yet
@@ -72,9 +72,8 @@ requirements:
 test:
   commands:
     # some smoke tests
-    - qupath -script fake -image fake.ome.tiff                                                              # [linux]
-    - ${PREFIX}/bin/QuPath.app/Contents/MacOS/QuPath-{{ github_version }} -script fake -image fake.ome.tiff # [osx]
-    - $LIBRARY_PREFIX\QuPath\QuPath.exe -script fake -image fake.ome.tiff                                   # [win]
+    - qupath -script fake -image fake.ome.tiff                              # [unix]
+    - $LIBRARY_PREFIX\QuPath\QuPath.exe -script fake -image fake.ome.tiff   # [win]
     # maybe do run some script to exercise the library (e.g. make sure openslide is found and works correctly)
     # maybe install ququ and test some bindings
 
