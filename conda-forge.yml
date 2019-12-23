@@ -4,7 +4,7 @@
 #
 # Remember to setup BINSTAR_TOKEN in:
 #   anaconda.org (Settings -> Access)
-#   azure
+#   azure (could not make it work setting it in a Library, so just do for the pipeline)
 # Make sure not to leak secrets!
 #
 
