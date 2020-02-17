@@ -9,8 +9,8 @@
 # when this package is installed.
 #
 
-{% set github_version="0.2.0-m8" %}
-{% set version="0.2.0.m8" %}
+{% set github_version="0.2.0-m9" %}
+{% set version="0.2.0.m9" %}
 {% set build_number="0" %}
 
 package:
@@ -20,14 +20,14 @@ package:
 source:
 
   - url: https://github.com/qupath/qupath/releases/download/v{{ github_version }}/QuPath-{{ github_version }}-Linux.tar.xz  # [linux]
-    sha256: f32493717b1579813ff2cf145acc07777bd83d4cab3758f920da5fb569fa3348                                                # [linux]
+    sha256: 8eace54cdba63c1c4b19a91d0dd103256bc845922e0532025c4a2c23c30bbdae                                                # [linux]
 
   - url: https://github.com/qupath/qupath/releases/download/v{{ github_version }}/QuPath-{{ github_version }}-Mac.dmg  # [osx]
-    sha256: c9f83205d3c9c31d0b8b15f528f529825056994b486261d4c94c5c83aba6800b                                           # [osx]
+    sha256: 34d8fb5e32c7ee627b2b06fe3c713f8474a5d72a68b290f17ba85c86aeda7b09                                           # [osx]
 
   - url: https://github.com/qupath/qupath/releases/download/v{{ github_version }}/QuPath-{{ github_version }}-Windows.zip  # [win]
     folder: qupath                                                                                                         # [win]
-    sha256: cfb26644b824c51ac470babc5a59a7c0e181d0f6c3194fa15fbacb1e7e1db67e                                               # [win]
+    sha256: 522f57211ec0e02c7a2d5e435950f2537be52e7bd1740e37c8a458657ec81817                                               # [win]
 
 build:
 
