@@ -10,6 +10,7 @@
 
 channels:
   sources:
+    - sdvillal
     - conda-forge
     - defaults
   targets:

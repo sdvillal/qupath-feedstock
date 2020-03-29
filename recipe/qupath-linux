@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+# Get script directory (https://stackoverflow.com/questions/59895/get-the-source-directory-of-a-bash-script-from-within-the-script-itself)
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do
+  DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
+done
+DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
+
+#
+# Do run QuPath
+#
+# N.B. at the moment we need the nasty LD_LIBRARY_PATH trick because:
+#   - otherwise in unix-like systems qupath load libraries first from system dirs
+#     see e.g. https://github.com/qupath/qupath/issues/355
+#   - libpixman in the releases > 0.36 and < 0.38.5 has a nasty bug
+#     see: https://github.com/libvips/libvips/issues/1401
+#          https://github.com/openslide/openslide/issues/278
+# Note that at the time or writing conda-forge pins pixman 0.38 and ships 0.38.0
+# that carries the bug. The same happens with for example arch linux (pixman 0.38.4).
+# Our options are to enforce that an older version of pixman (e.g. 0.36, shipped
+# with QuPath itself) or a newer version (>0.38.5) is used, instead of
+# the broken versions.
+#
+# pixman seems forward-compatible (keep old symbols and ABI, only add new symbols)
+#   https://abi-laboratory.pro/tracker/timeline/pixman/
+# so we can use 0.38.5 as I packaged here:
+#   https://github.com/sdvillal/pixman-feedstock/pull/1
+# This is the approach we are taking here. Note that the same needs to happen
+# for the time being when using qupath as a library, e.g. in ququ.
+#
+# Alternatively we could even more nastily restrict to supplied pixman
+# using the even nastier LD_PRELOAD (and maybe use the one shipped with QuPath itself).
+#
+LD_LIBRARY_PATH=${CONDA_PREFIX}/lib:${LD_LIBRARY_PATH} ${DIR}/qupath-bin "$@"

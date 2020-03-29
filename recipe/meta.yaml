@@ -11,7 +11,7 @@
 
 {% set github_version="0.2.0-m9" %}
 {% set version="0.2.0.m9" %}
-{% set build_number="0" %}
+{% set build_number="1" %}
 
 package:
   name: qupath
@@ -40,13 +40,14 @@ build:
   script:
 
     # --- linux
-    - mkdir -p ${PREFIX}/opt/QuPath-{{ github_version }}            # [linux]
-    - mv bin lib ${PREFIX}/opt/QuPath-{{ github_version }}          # [linux]
-    - cd ${PREFIX}/opt                                              # [linux]
-    - ln -s QuPath-{{ github_version }} QuPath                      # [linux]
-    - mkdir -p ${PREFIX}/bin                                        # [linux]
-    - cd ${PREFIX}/bin                                              # [linux]
-    - ln -s ../opt/QuPath/bin/QuPath-{{ github_version }} ./qupath  # [linux]
+    - mkdir -p ${PREFIX}/opt/QuPath-{{ github_version }}                # [linux]
+    - mv bin lib ${PREFIX}/opt/QuPath-{{ github_version }}              # [linux]
+    - cd ${PREFIX}/opt                                                  # [linux]
+    - ln -s QuPath-{{ github_version }} QuPath                          # [linux]
+    - mkdir -p ${PREFIX}/bin                                            # [linux]
+    - cd ${PREFIX}/bin                                                  # [linux]
+    - ln -s ../opt/QuPath/bin/QuPath-{{ github_version }} ./qupath-bin  # [linux]
+    - cp ${RECIPE_DIR}/qupath-linux ${PREFIX}/bin/qupath                # [linux]
 
     # --- macos
     - 7z x QuPath-{{ github_version }}-Mac.dmg                                      # [osx]
@@ -69,6 +70,8 @@ build:
 requirements:
   build:
     - p7zip  # [osx]
+  run:
+    - pixman >0.38.4 # [unix]
 
 test:
   commands:
