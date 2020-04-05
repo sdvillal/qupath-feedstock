@@ -49,11 +49,12 @@ build:
     - cp ${RECIPE_DIR}/qupath-linux ${PREFIX}/bin/qupath             # [linux]
 
     # --- macos
-    - 7z x QuPath-{{ github_version }}-Mac.dmg                                      # [osx]
-    - mv QuPath-{{ github_version }}/QuPath-{{ github_version }}.app ${PREFIX}/bin  # [osx]
+    - cd qupath                                                                     # [osx]
+    - ./gradlew createPackage                                                       # [osx]
+    - mv ./build/dist/QuPath-{{ dev_version }}.app ${PREFIX}/bin                    # [osx]
     - cd ${PREFIX}/bin                                                              # [osx]
-    - ln -s QuPath-{{ github_version }}.app QuPath.app                              # [osx]
-    - chmod +x QuPath.app/Contents/MacOS/QuPath-{{ github_version }}                # [osx]
+    - ln -s QuPath-{{ dev_version }}.app QuPath.app                                 # [osx]
+    - chmod +x QuPath.app/Contents/MacOS/QuPath-{{ dev_version }}                   # [osx]
     - cp ${RECIPE_DIR}/qupath-macos ${PREFIX}/bin/qupath                            # [osx]
 
     # --- windows
