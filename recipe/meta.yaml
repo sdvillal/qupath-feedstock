@@ -61,7 +61,8 @@ build:
     - cd qupath                                                                                     # [win]
     - gradlew createPackage                                                                         # [win]
     - mkdir %LIBRARY_PREFIX%\QuPath                                                                 # [win]
-    - robocopy %SRC_DIR%\qupath\build\dist %LIBRARY_PREFIX%\QuPath\ *.* /E /MOV                     # [win]
+    - dir %SRC_DIR%\qupath\build\dist\                                                              # [win]
+    - robocopy %SRC_DIR%\qupath\build\dist\ %LIBRARY_PREFIX%\QuPath\ *.* /E /MOV                    # [win]
     - copy %LIBRARY_PREFIX%\QuPath\QuPath-{{ dev_version }}.exe %LIBRARY_PREFIX%\QuPath\QuPath.exe  # [win]
 
   # At the moment these are milestones and there are no API stability guarantees.
