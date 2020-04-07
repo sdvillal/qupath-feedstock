@@ -10,10 +10,13 @@
 # when this package is installed.
 #
 
+{% set repo="https://github.com/qupath/qupath" %}
+{% set commit="df7dea21e4a0ead5743995143780d022bdcfded1" %}
+{% set sha256="99c3c912c2c77b6713adc7cee79fcc485b8a55d10e650241218701f4ea293814" %}
 {% set dev_version="0.2.0-m10-SNAPSHOT" %}
 {% set github_version="0.2.0-m10dev0" %}
 {% set version="0.2.0.m10dev0" %}
-{% set build_number="0" %}
+{% set build_number="1" %}
 
 package:
   name: qupath
@@ -21,8 +24,8 @@ package:
 
 source:
 
-  - url: https://github.com/qupath/qupath/archive/71b43873bfe3e738418739334880a5deeaf7e87d.tar.gz
-    sha256: 68c3c8c8491d2f44c7ec515e7ef9747add67317050aec1cd43d24a5903aae706
+  - url: {{ repo }}/archive/{{ commit }}.tar.gz
+    sha256: {{ sha256 }}
     folder: qupath
 
 build:
