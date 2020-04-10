@@ -61,11 +61,14 @@ build:
     - cp ${RECIPE_DIR}/qupath-macos ${PREFIX}/bin/qupath                            # [osx]
 
     # --- windows
-    - cd qupath                                                                                     # [win]
-    - gradlew createPackage                                                                         # [win]
-    - mkdir %LIBRARY_PREFIX%\QuPath                                                                 # [win]
+    - echo on  # [win]
+    - cd qupath                                                                               # [win]
+    - dir                                                                                     # [win]
+    - gradlew createPackage                                                                   # [win]
+    - mkdir %LIBRARY_PREFIX%\QuPath                                                           # [win]
     - cd %SRC_DIR%\qupath\build\                                                              # [win]
-    - dir                                                              # [win]
+    - echo %cd%  # [win]
+    - dir                                                                                     # [win]
     - robocopy %SRC_DIR%\qupath\build\dist\QuPath-{{ dev_version }} %LIBRARY_PREFIX%\QuPath\ *.* /E /MOV                    # [win]
     - copy %LIBRARY_PREFIX%\QuPath\QuPath-{{ dev_version }}.exe %LIBRARY_PREFIX%\QuPath\QuPath.exe  # [win]
 
