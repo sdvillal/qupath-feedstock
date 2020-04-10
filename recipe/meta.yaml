@@ -65,6 +65,8 @@ build:
     - cd qupath                                                                               # [win]
     - dir                                                                                     # [win]
     - gradlew createPackage                                                                   # [win]
+    - dir  # [win]
+    - FAIL  # [win]
     - mkdir %LIBRARY_PREFIX%\QuPath                                                           # [win]
     - cd %SRC_DIR%\qupath\build\                                                              # [win]
     - echo %cd%  # [win]
