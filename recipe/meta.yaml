@@ -5,7 +5,7 @@
 # we repackage QuPath releases, including the current JRE used to develop them.
 #
 # This package allows using QuPath both as a standalone application or pimped
-# from python using "ququ", that should be able to automagically find qupath
+# from python using "paquo", that should be able to automagically find qupath
 # when this package is installed.
 #
 
