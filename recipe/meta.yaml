@@ -11,7 +11,7 @@
 
 {% set github_version="0.2.3" %}
 {% set version="0.2.3" %}
-{% set build_number="0" %}
+{% set build_number="1" %}
 
 package:
   name: qupath
@@ -72,7 +72,7 @@ requirements:
   build:
     - p7zip  # [osx]
   run:
-    - pixman >0.38.4  # [unix]
+    - pixman >0.40  # [unix]
 
 test:
   commands:
