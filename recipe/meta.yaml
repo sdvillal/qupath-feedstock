@@ -72,7 +72,7 @@ requirements:
   build:
     - p7zip  # [osx]
   run:
-    - pixman >0.40  # [unix]
+    - pixman  # [unix]
 
 test:
   commands:
