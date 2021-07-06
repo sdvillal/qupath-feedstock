@@ -47,7 +47,7 @@ build:
     - mkdir -p ${PREFIX}/bin                                            # [linux]
     - cd ${PREFIX}/bin                                                  # [linux]
     - ln -s ../opt/QuPath/bin/QuPath-{{ github_version }} ./qupath-bin  # [linux]
-    - cp ${RECIPE_DIR}/qupath-linux ${PREFIX}/bin/qupath                # [linux]
+    - cp ${RECIPE_DIR}/qupath-linux ${PREFIX}/bin/qupath                # [linux]
 
     # --- macos
     - 7z x QuPath-{{ github_version }}-Mac.pkg                                      # [osx]
@@ -55,8 +55,8 @@ build:
     - mv QuPath-{{ github_version }}.app ${PREFIX}/bin                              # [osx]
     - cd ${PREFIX}/bin                                                              # [osx]
     - ln -s QuPath-{{ github_version }}.app QuPath.app                              # [osx]
-    - chmod +x QuPath.app/Contents/MacOS/QuPath-{{ github_version }}                # [osx]
-    - cp ${RECIPE_DIR}/qupath-macos ${PREFIX}/bin/qupath                            # [osx]
+    - chmod +x QuPath.app/Contents/MacOS/QuPath-{{ github_version }}                # [osx]
+    - cp ${RECIPE_DIR}/qupath-macos ${PREFIX}/bin/qupath                            # [osx]
 
     # --- windows
     - mkdir %LIBRARY_PREFIX%\QuPath                                                                    # [win]
