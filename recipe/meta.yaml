@@ -53,10 +53,8 @@ build:
     # --- macos
     - 7z x QuPath-{{ github_version }}.pkg                                          # [osx]
     - 7z x Payload~                                                                 # [osx]
-    - mv QuPath.app ${PREFIX}/bin/QuPath-{{ github_version }}                       # [osx]
-    - cd ${PREFIX}/bin                                                              # [osx]
-    - ln -s QuPath-{{ github_version }}.app QuPath.app                              # [osx]
-    - chmod +x QuPath.app/Contents/MacOS/QuPath                                     # [osx]
+    - mv QuPath.app ${PREFIX}/bin                                                   # [osx]
+    - chmod +x ${PREFIX}/bin/QuPath.app/Contents/MacOS/QuPath                       # [osx]
     - cp ${RECIPE_DIR}/qupath-macos ${PREFIX}/bin/qupath                            # [osx]
 
     # --- windows
