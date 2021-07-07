@@ -51,7 +51,7 @@ build:
     - cp ${RECIPE_DIR}/qupath-linux ${PREFIX}/bin/qupath                # [linux]
 
     # --- macos
-    - 7z x QuPath-{{ github_version }}-Mac.pkg                                      # [osx]
+    - 7z x QuPath-{{ github_version }}.pkg                                          # [osx]
     - 7z x Payload~                                                                 # [osx]
     - mv QuPath-{{ github_version }}.app ${PREFIX}/bin                              # [osx]
     - cd ${PREFIX}/bin                                                              # [osx]
