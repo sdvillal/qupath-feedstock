@@ -10,7 +10,7 @@
 #
 
 {% set github_version="0.3.0-rc1" %}
-{% set version="0.3.0-rc1" %}
+{% set version="0.3.0rc1" %}
 {% set build_number="0" %}
 
 package:
