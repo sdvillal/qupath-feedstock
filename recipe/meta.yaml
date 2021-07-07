@@ -44,9 +44,10 @@ build:
     - mv bin lib ${PREFIX}/opt/QuPath-{{ github_version }}              # [linux]
     - cd ${PREFIX}/opt                                                  # [linux]
     - ln -s QuPath-{{ github_version }} QuPath                          # [linux]
+    - chmod +x QuPath/bin/QuPath                                        # [linux]
     - mkdir -p ${PREFIX}/bin                                            # [linux]
     - cd ${PREFIX}/bin                                                  # [linux]
-    - ln -s ../opt/QuPath/bin/QuPath-{{ github_version }} ./qupath-bin  # [linux]
+    - ln -s ../opt/QuPath/bin/QuPath ./qupath-bin                       # [linux]
     - cp ${RECIPE_DIR}/qupath-linux ${PREFIX}/bin/qupath                # [linux]
 
     # --- macos
