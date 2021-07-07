@@ -9,9 +9,9 @@
 # when this package is installed.
 #
 
-{% set github_version="0.2.3" %}
-{% set version="0.2.3" %}
-{% set build_number="2" %}
+{% set github_version="0.3.0-rc1" %}
+{% set version="0.3.0-rc1" %}
+{% set build_number="0" %}
 
 package:
   name: qupath
@@ -19,15 +19,15 @@ package:
 
 source:
 
-  - url: https://github.com/qupath/qupath/releases/download/v{{ github_version }}/QuPath-{{ github_version }}-Linux.tar.xz  # [linux]
-    sha256: 3b168d972d690ba9083d50e342d58219f249616158eb5eaf1bf5213190104de2                                                # [linux]
+  - url: https://github.com/qupath/qupath/releases/download/v{{ github_version }}/QuPath-{{ github_version }}.tar.xz  # [linux]
+    sha256: e98db797a39e0102907fedc017aa24d6577b4f3ba60356dc871baee5844eb8e8                                          # [linux]
 
-  - url: https://github.com/qupath/qupath/releases/download/v{{ github_version }}/QuPath-{{ github_version }}-Mac.pkg  # [osx]
-    sha256: 084bef2ac8ca5e84669c3b09c536f1cf49dccd655a19ac840dabbc03f435ec2e                                           # [osx]
+  - url: https://github.com/qupath/qupath/releases/download/v{{ github_version }}/QuPath-{{ github_version }}.pkg  # [osx]
+    sha256: b039214f0a32d402f3a42f9627a124e5265c0a0b3c6b6c83363461e96b345e62                                       # [osx]
 
-  - url: https://github.com/qupath/qupath/releases/download/v{{ github_version }}/QuPath-{{ github_version }}-Windows.zip  # [win]
-    folder: qupath                                                                                                         # [win]
-    sha256: 6f53a32e168b0dc61451dbec9bc4577eda52e7069372ee8eb402120d7775dd26                                               # [win]
+  - url: https://github.com/qupath/qupath/releases/download/v{{ github_version }}/QuPath-{{ github_version }}.zip  # [win]
+    folder: qupath                                                                                                 # [win]
+    sha256: 43d1f07a3801750dbc8f55cade67969e3d93bbe57d6ecea34e547b4d08e49a84                                       # [win]
 
 build:
 
