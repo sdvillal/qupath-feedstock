@@ -9,8 +9,8 @@
 # when this package is installed.
 #
 
-{% set github_version="0.5.0" %}
-{% set version="0.5.0" %}
+{% set github_version="0.6.0" %}
+{% set version="0.6.0" %}
 {% set build_number="0" %}
 
 package:
@@ -20,17 +20,17 @@ package:
 source:
 
   - url: https://github.com/qupath/qupath/releases/download/v{{ github_version }}/QuPath-v{{ github_version }}-Linux.tar.xz  # [linux]
-    sha256: f426234ece3916d0a6c0669cf3c4e9caac7f0ab88431a04e2bb6bd221bce02f4                                                 # [linux]
+    sha256: 19ec6d821678c99b943a61852d05c88a770b9fbc48bb09cd0209742a00015ee6                                                 # [linux]
 
   - url: https://github.com/qupath/qupath/releases/download/v{{ github_version }}/QuPath-v{{ github_version }}-Mac-arm64.pkg  # [osx and arm64]
-    sha256: e08fa1542298b7c7ef56acfeba10febc7c1c7dd2f3e11544a01723f100f99402                                                  # [osx and arm64]
+    sha256: a92cb5981aeb853285a0ca00a32b344a2f050ec76ba37596a38bdddfc48d48f7                                                  # [osx and arm64]
 
   - url: https://github.com/qupath/qupath/releases/download/v{{ github_version }}/QuPath-v{{ github_version }}-Mac-x64.pkg    # [osx and not arm64]
-    sha256: 6d36907995ccfd54ce514ad7a7011f8f7988ce285923fff526d1d19a891cf5ad                                                  # [osx and not arm64]
+    sha256: a5efc56fb82ac1bea19cefe4038a2d92658f2c7493064d96e1647938868528ae                                                  # [osx and not arm64]
 
   - url: https://github.com/qupath/qupath/releases/download/v{{ github_version }}/QuPath-v{{ github_version }}-Windows.zip  # [win]
     folder: qupath                                                                                                          # [win]
-    sha256: bd440a1ab5e8213c32775cb5d3919b21c8aa16b17bbf3f816fc1bac08eeea520                                                # [win]
+    sha256: d3144f5e5f43342d16640a2f4832522576e2fe877b9a8392bb8bdbb4629fe220                                                # [win]
 
 build:
 
